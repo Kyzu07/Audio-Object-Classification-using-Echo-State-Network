@@ -63,11 +63,6 @@ res = Reservoir(n_internal_units=30, spectral_radius=0.6, leak=0.6)
 input_repr = res.getReservoirEmbedding(X, pca, ridge_embedding)
 ```
 
-### Evaluation
-Run the result analysis script to compute metrics and visualize performance:
-```python
-python analyze_results.py
-```
 
 ## Hyperparameter Tuning
 Hyperparameter tuning plays a critical role in optimizing the performance of the Echo State Network. Below are the key hyperparameters and how to tune them:
@@ -111,53 +106,11 @@ Hyperparameter tuning plays a critical role in optimizing the performance of the
 - Evaluate performance using a validation set.
 - Track metrics such as accuracy, F1-score, and loss trends for each configuration.
 
-### Example Code for Hyperparameter Tuning
-```python
-from sklearn.model_selection import ParameterGrid
-
-param_grid = {
-    'n_internal_units': [30, 50, 100],
-    'spectral_radius': [0.5, 0.6, 0.8],
-    'leak': [0.2, 0.6, 1.0],
-    'input_scaling': [0.1, 0.5],
-    'connectivity': [0.2, 0.3],
-    'noise_level': [0.01, 0.02]
-}
-
-grid = ParameterGrid(param_grid)
-
-best_score = 0
-best_params = None
-
-for params in grid:
-    res = Reservoir(
-        n_internal_units=params['n_internal_units'],
-        spectral_radius=params['spectral_radius'],
-        leak=params['leak'],
-        input_scaling=params['input_scaling'],
-        connectivity=params['connectivity'],
-        noise_level=params['noise_level']
-    )
-    input_repr = res.getReservoirEmbedding(X, pca, ridge_embedding)
-    # Perform evaluation and track performance
-    score = evaluate(input_repr, Y)
-    if score > best_score:
-        best_score = score
-        best_params = params
-
-print("Best Score:", best_score)
-print("Best Parameters:", best_params)
-```
 
 ## Results
 - Achieved **XX% accuracy** on the test dataset.
 - Detailed classification report and confusion matrix are available in the `results/` folder.
 
-## Contributing
-Contributions are welcome! Feel free to open an issue or submit a pull request.
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
 
 ---
 
